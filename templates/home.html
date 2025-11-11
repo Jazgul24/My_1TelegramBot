@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Старт теста{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h1 class="card-title mb-3">Адаптивный тест по Python</h1>
+    <p class="card-text">Введите своё имя и, при желании, класс или группу, чтобы начать адаптивный тест. Максимальное количество вопросов: {{ max_questions }}.</p>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label" for="student_name">Имя и фамилия</label>
+        <input class="form-control" type="text" name="student_name" id="student_name" placeholder="Например, Анна Иванова" required>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="group_name">Класс или группа (необязательно)</label>
+        <input class="form-control" type="text" name="group_name" id="group_name" placeholder="11А или Python club">
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Начать тест</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

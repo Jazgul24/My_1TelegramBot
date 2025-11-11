@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Результаты учеников{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Результаты учеников</h1>
+  <a class="btn btn-outline-secondary" href="{{ url_for('teacher_dashboard') }}">Выйти</a>
+</div>
+{% if attempts %}
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Группа</th>
+          <th>Счёт</th>
+          <th>Всего вопросов</th>
+          <th>Начат</th>
+          <th>Завершён</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attempt in attempts %}
+          <tr>
+            <td>{{ attempt.student_name }}</td>
+            <td>{{ attempt.group_name or '—' }}</td>
+            <td>{{ attempt.score }}</td>
+            <td>{{ attempt.total_questions }}</td>
+            <td>{{ attempt.started_at }}</td>
+            <td>{{ attempt.completed_at or 'В процессе' }}</td>
+            <td>
+              <a class="btn btn-sm btn-outline-primary" href="{{ url_for('teacher_attempt_detail', attempt_id=attempt.id, code=code) }}">Подробнее</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="alert alert-info">Пока нет попыток прохождения теста.</div>
+{% endif %}
+{% endblock %}

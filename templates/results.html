@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Результаты{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title">Результаты теста</h2>
+    <p class="lead">{{ attempt.student_name }}, ваш результат: <strong>{{ attempt.score }} / {{ attempt.total_questions }}</strong>.</p>
+    {% if recommendations %}
+      <div class="alert alert-info">
+        <h4 class="alert-heading">Рекомендации по темам</h4>
+        <p>Обратите внимание на следующие темы, чтобы улучшить знания:</p>
+        <ul class="mb-0">
+          {% for text in recommendations %}
+            <li>{{ text }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <div class="alert alert-success">Отличная работа! Все темы освоены на данном уровне.</div>
+    {% endif %}
+
+    <h3 class="mt-4">История ответов</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Вопрос</th>
+            <th>Сложность</th>
+            <th>Тема</th>
+            <th>Результат</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for response in responses %}
+            {% set question = get_question(response.question_id) %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>
+                {% if question %}
+                  {{ question.question }}
+                {% else %}
+                  Вопрос сохранён с идентификатором {{ response.question_id }}
+                {% endif %}
+              </td>
+              <td>{{ response.difficulty }}</td>
+              <td>{{ response.topic }}</td>
+              <td>
+                {% if response.is_correct %}
+                  <span class="badge bg-success">Верно</span>
+                {% else %}
+                  <span class="badge bg-danger">Ошибочно</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a class="btn btn-outline-primary" href="{{ url_for('index') }}">Пройти снова</a>
+  </div>
+</div>
+{% endblock %}
