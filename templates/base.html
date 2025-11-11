@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Python Adaptive Test{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-pprn3073KE6tl6/2E1b9d7gk2P3y3kzG5JJ9mx3Y5G2Z1p4s74Zx0dhqG/V70W54" crossorigin="anonymous">
+    <style>
+      body { background: #f8f9fa; }
+      .content { max-width: 960px; margin: 2rem auto; }
+      footer { margin-top: 4rem; text-align: center; color: #6c757d; }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Python Tutor</a>
+        <div class="navbar-nav">
+          <a class="nav-link" href="{{ url_for('index') }}">Главная</a>
+          <a class="nav-link" href="{{ url_for('teacher_dashboard') }}">Для учителя</a>
+        </div>
+      </div>
+    </nav>
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      <p class="small">Адаптивный тренажер по Python &copy; {{ 2024 }}</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Вход для учителя{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h1 class="card-title mb-3">Кабинет учителя</h1>
+    <p class="text-muted">Введите код доступа, чтобы посмотреть результаты учащихся.</p>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="get" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label" for="code">Код доступа</label>
+        <input class="form-control" type="password" name="code" id="code" placeholder="Например, python" required>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Войти</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

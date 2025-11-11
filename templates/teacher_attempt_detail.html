@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Детали попытки{% endblock %}
+{% block content %}
+<a class="btn btn-link" href="{{ url_for('teacher_dashboard', code=code) }}">&larr; Назад</a>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title">{{ attempt.student_name }}</h2>
+    <p class="text-muted mb-4">Группа: {{ attempt.group_name or '—' }}. Начал: {{ attempt.started_at }}. Завершил: {{ attempt.completed_at or 'В процессе' }}.</p>
+    <p class="lead">Результат: {{ attempt.score }} / {{ attempt.total_questions }}</p>
+
+    <h3 class="h5 mt-4">Ответы учащегося</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Вопрос</th>
+            <th>Сложность</th>
+            <th>Тема</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for response in responses %}
+            {% set question = get_question(response.question_id) %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>
+                {% if question %}
+                  {{ question.question }}
+                {% else %}
+                  Идентификатор: {{ response.question_id }}
+                {% endif %}
+              </td>
+              <td>{{ response.difficulty }}</td>
+              <td>{{ response.topic }}</td>
+              <td>
+                {% if response.is_correct %}
+                  <span class="badge bg-success">Верно</span>
+                {% else %}
+                  <span class="badge bg-danger">Ошибочно</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
